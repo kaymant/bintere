@@ -1,0 +1,15 @@
+---
+title: "Chithi Na Koi Sandesh - Jagjit Singh"
+date: 2026-02-09
+video_id: "HbOCFkEdrbI"
+cover:
+    image: "https://i.ytimg.com/vi/HbOCFkEdrbI/hqdefault.jpg"
+    alt: "Chithi Na Koi Sandesh - Jagjit Singh"
+    relative: false
+tags: ["music", "separation", "Jagjit"]
+draft: false
+---
+
+A silent echo in the chambers of the heart, separation lingers like a forgotten scent.
+
+{{< youtube HbOCFkEdrbI >}}
