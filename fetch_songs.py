@@ -27,7 +27,10 @@ QUERIES = [
     "Mehdi Hassan ghazal",
     "Mohd Rafi sad songs",
     "Ali Sethi sad songs",
-    "Nayyara Noor ghazal"
+    "Nayyara Noor ghazal",
+    "sad bollywood songs lyrical",
+    "heartbreak songs india lyrical video",
+    "lonely night hindi songs coke studio"
 ]
 
 POETS = [
@@ -247,6 +250,7 @@ def fetch_and_save_videos():
             q=query,
             type="video",
             videoEmbeddable="true",
+            regionCode="IN",
             maxResults=5, 
             order="relevance" # Changed to find better quality titles
         )
