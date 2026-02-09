@@ -58,6 +58,37 @@ BACKUP_QUOTES = [
     "A beautiful rendition that captures the hollow feeling of separation."
 ]
 
+PROMPTS_LIST = [
+    # Vibe 1: The Philosopher (Deep & Abstract)
+    """
+    Write a short, philosophical reflection on separation based on this song: '{title}'.
+    Focus on the concept of time and memory.
+    Do NOT use the words: echo, tapestry, symphony, silent.
+    Keep it under 50 words.
+    """,
+
+    # Vibe 2: The Gen-Z Friend (Casual & Relatable)
+    """
+    Write a short, relatable caption for this sad song: '{title}'.
+    Write it like a text message to a friend who is heartbroken.
+    Use lowercase, simple language. No flowery poetry.
+    Keep it under 30 words.
+    """,
+
+    # Vibe 3: The Music Critic (Analytical & Cold)
+    """
+    Analyze the mood of the song '{title}' in one sharp sentence.
+    Focus on the lyrics and the feeling of loss.
+    Be direct and dry. No metaphors.
+    """,
+
+    # Vibe 4: The Storyteller (Visual & Specific)
+    """
+    Describe a specific scene that fits this song: '{title}'.
+    Example: 'Sitting on a park bench in December waiting for a bus that never comes.'
+    Do not mention the song itself, just the scene.
+    """
+]
 # --- HELPER FUNCTIONS ---
 
 def ensure_dir(directory):
@@ -161,14 +192,7 @@ def generate_content(raw_title):
     """
     print(f"   ... Asking AI to clean & describe '{raw_title}'")
     
-    prompt = (
-        f"Analyze this YouTube video title: '{raw_title}'.\n"
-        f"1. Extract the specific song name and artist. (e.g. 'Tum Hi Ho - Arijit Singh'). "
-        f"   If it is a compilation (e.g. 'Top 10 songs'), name it 'Best of [Artist] - Compilation'.\n"
-        f"2. Write a 1-sentence poetic reflection on separation.\n\n"
-        f"Output strictly in this format:\n"
-        f"Song Name - Artist || Poetic Description"
-    )
+    prompt = random.choice(PROMPTS_LIST)
     
     try:
         response = client.models.generate_content(
