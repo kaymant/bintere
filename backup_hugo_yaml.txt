@@ -1,0 +1,54 @@
+baseURL: https://bintere.com/
+languageCode: en-in
+title: Bin Tere
+theme: PaperMod
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+
+assets:
+  disableHLJS: true # Speeds up load time
+  css:
+    - css/extended/custom.css
+
+params:
+  defaultTheme: dark
+  # DISABLING Profile Mode helps clear the "sidebar" effect
+  profileMode:
+    enabled: false 
+  
+  # ENABLING Home-Info Mode (Better for Grids)
+  homeInfoParams:
+    Title: "Bin Tere"
+    Content: "A curated archive of separation and longing."
+  
+  # FORCE Full Width
+  displayFullWidth: true
+  
+  # Hide these to clean up the card
+  ShowReadingTime: false
+  ShowShareButtons: false
+  ShowPostNavLinks: false
+  ShowBreadCrumbs: false
+  ShowCodeCopyButtons: false
+  
+  
+menu:
+  main:
+    - identifier: home
+      name: "Home"
+      url: "/"
+      weight: 10
+    - identifier: collection
+      name: "The Collection"
+      url: "/posts"
+      weight: 20
+    - identifier: submit
+      name: "Submit a Letter"
+      url: "/letters"
+      weight: 30
+    - identifier: about
+      name: "About"
+      url: "/about"
+      weight: 40

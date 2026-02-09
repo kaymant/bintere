@@ -1,0 +1,73 @@
+baseURL: https://bintere.com/
+languageCode: en-in
+title: Bin Tere
+theme: PaperMod
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+
+assets:
+  disableHLJS: true # Speeds up load time
+  css:
+    - css/extended/custom.css
+
+params:
+  defaultTheme: dark
+  # DISABLING Profile Mode helps clear the "sidebar" effect
+  profileMode:
+    enabled: false 
+  
+  mainSections:
+    - posts
+    
+  
+  # ENABLING Home-Info Mode (Better for Grids)
+  homeInfoParams:
+    Title: "Bin Tere (बिन तेरे)"
+    Content: >
+        "Some silences are too loud to bear alone."
+        
+        Bin Tere is a space for the unspoken words that linger after a goodbye. Through a carefully woven tapestry of sad songs, some shayaris, and anonymous letters, we attempt to give a voice to the void left behind. 
+        
+        Stay a while, listen, and remember, you are not the only one waiting.
+  
+  # FORCE Full Width
+  displayFullWidth: true
+  
+  # Hide these to clean up the card
+  ShowReadingTime: false
+  ShowShareButtons: false
+  ShowPostNavLinks: false
+  ShowBreadCrumbs: false
+  ShowCodeCopyButtons: false
+  
+  
+menu:
+  main:
+    - identifier: home
+      name: "Home"
+      url: "/"
+      weight: 10
+    - identifier: collection
+      name: "The Collection"
+      url: "/posts"
+      weight: 20
+    - identifier: submit
+      name: "Submit a Letter"
+      url: "/letters"
+      weight: 30
+    - identifier: about
+      name: "About"
+      url: "/about"
+      weight: 40
+    - identifier: shayari
+      name: "Shayari"
+      url: "/shayari"
+      weight: 25
+      
+      
+markup:
+  goldmark:
+    renderer:
+      unsafe: true  # This allows the <form> to work
