@@ -195,7 +195,8 @@ def generate_content(raw_title):
     """
     print(f"   ... Asking AI to clean & describe '{raw_title}'")
     
-    prompt = random.choice(PROMPTS_LIST)
+    selected_prompt = random.choice(PROMPTS_LIST)
+    prompt = selected_prompt.format(title=raw_title)
     
     try:
         response = client.models.generate_content(
