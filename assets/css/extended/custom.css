@@ -1,297 +1,230 @@
-/* BREAK OUT OF PAPERMOD'S 3-COLUMN LAYOUT */
+/* --- 1. TYPOGRAPHY & IMPORTS --- */
+/* Import Serif for body (Merriweather) and Handwritten for quotes (Dancing Script) */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+
+:root {
+    --font-body: 'Merriweather', serif;
+    --font-hand: 'Dancing Script', cursive;
+    
+    /* NEW PALETTE: Deep Navy & Soft Gold */
+    --color-bg: #0f172a;        /* Deep Navy */
+    --color-bg-gradient: linear-gradient(to bottom, #0f172a, #1e293b);
+    --color-text-main: #e2e8f0; /* Soft off-white */
+    --color-text-muted: #94a3b8; /* Muted gray-blue */
+    --color-accent: #f59e0b;    /* Amber/Sepia for highlights */
+    
+    /* GLASSMORPHISM CARD STYLE */
+    --card-bg: rgba(255, 255, 255, 0.03); 
+    --card-border: 1px solid rgba(255, 255, 255, 0.08);
+    --card-hover-bg: rgba(255, 255, 255, 0.08);
+}
+
+/* --- 2. BASE STYLES & TEXTURE --- */
 body {
-    display: block !important;
+    font-family: var(--font-body);
+    background: var(--color-bg);
+    background-image: var(--color-bg-gradient);
+    color: var(--color-text-main);
+    line-height: 1.8; /* "Breathing room" */
+    font-weight: 300;
+    margin: 0;
+    min-height: 100vh;
+    display: block !important; /* Keep your layout override */
 }
 
-main.main article.post-single {
-    grid-column: 1 / -1 !important;
-    max-width: 900px !important;
-    margin: 0 auto !important;
+/* FILM GRAIN TEXTURE OVERLAY */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
 }
 
-/* Hide sidebar if it exists */
-aside,
-.sidebar {
-    display: none !important;
-}
+/* --- 3. LAYOUT OVERRIDES (Keeping your Grid Logic) --- */
 
-/* MAKE MAIN THE GRID CONTAINER */
+/* Hide sidebar */
+aside, .sidebar { display: none !important; }
+
+/* Main Grid Container */
 main.main {
-    max-width: 1400px !important;
+    max-width: 1200px !important; /* Slightly narrower than 1400px for intimacy */
     width: 100% !important;
-    padding: 20px 4%;
+    padding: 40px 4%; /* More vertical breathing room */
     margin: 0 auto;
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-    gap: 24px !important;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; /* Slightly wider cards */
+    gap: 32px !important; /* More space between memories */
 }
 
-/* MAKE NON-CARD ELEMENTS SPAN FULL WIDTH */
-main.main > .page-header,
-main.main > header,
-main.main > .page-footer,
-main.main > footer,
-main.main > .first-entry,
-main.main > .home-info,
+/* Force full width for non-card elements */
+main.main > .page-header, main.main > header,
+main.main > .page-footer, main.main > footer,
+main.main > .first-entry, main.main > .home-info,
 main.main > div:not(.post-entry) {
-    grid-column: 1 / -1 !important; /* Span all columns */
+    grid-column: 1 / -1 !important;
 }
 
-/* Style the home info section nicely */
-.first-entry,
-.home-info {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 30px;
-    margin-bottom: 20px;
+/* --- 4. HEADER & HERO SECTION --- */
+.first-entry, .home-info {
+    background: transparent; /* Remove heavy black box */
+    border: none;
+    padding: 60px 20px;
+    margin-bottom: 40px;
     text-align: center;
 }
 
-.first-entry h1,
-.home-info h1 {
-    font-size: 4rem;
-    margin-bottom: 10px;
-    color: #fff;
+.first-entry h1, .home-info h1 {
+    font-family: var(--font-hand); /* Handwritten Title */
+    font-size: 5rem;
+    color: var(--color-accent);
+    text-shadow: 0 4px 20px rgba(245, 158, 11, 0.2); /* Soft Glow */
+    margin-bottom: 20px;
 }
 
-.first-entry p,
-.home-info p {
-    font-size: 1.1rem;
-    color: #aaa;
-    margin: 0;
+.first-entry p, .home-info p {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-/* THE CARD DESIGN */
+/* --- 5. CARD DESIGN (The "Memory Box" Look) --- */
 article.post-entry {
-    margin: 0 !important;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
+    background: var(--card-bg);
+    border: var(--card-border);
+    border-radius: 12px; /* Soft corners */
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
     display: flex !important;
     flex-direction: column !important;
     height: 100%;
     position: relative;
+    backdrop-filter: blur(5px); /* Glass effect */
 }
 
-/* HOVER EFFECT */
 article.post-entry:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    border-color: #555;
+    transform: translateY(-8px); /* Gentler float */
+    background: var(--card-hover-bg);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.2);
 }
 
-/* THUMBNAIL IMAGE */
-.entry-cover,
-figure.entry-cover {
-    margin: 0 !important;
-    width: 100%;
-}
+/* IMAGES */
 .entry-cover img {
     width: 100%;
-    height: 180px;
+    height: 220px; /* Taller images */
     object-fit: cover;
-    border-radius: 0;
-    display: block;
+    filter: sepia(20%) contrast(90%); /* Vintage feel */
+    transition: filter 0.5s ease;
 }
 
-/* CARD TITLE */
-.entry-header {
-    padding: 12px 15px 5px;
+article.post-entry:hover .entry-cover img {
+    filter: sepia(0%) contrast(100%); /* Restore color on hover */
 }
+
+/* CARD TEXT */
+.entry-header { padding: 20px 20px 10px; }
 .entry-header h2 {
-    font-size: 1.1rem !important;
-    margin: 0 !important;
-    line-height: 1.4;
-    color: #fff !important;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.3rem !important;
+    color: var(--color-text-main) !important;
+    letter-spacing: 0.02em;
 }
 
-/* CARD DESCRIPTION */
-.entry-content,
-div.entry-content {
-    padding: 0 15px 15px;
-    font-size: 0.9rem;
-    color: #aaa;
-    flex-grow: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.entry-content {
+    padding: 0 20px 25px;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    font-style: italic;
 }
 
-/* REMOVE FOOTER METADATA FROM CARDS */
-.entry-footer,
-footer.entry-footer {
-    display: none !important;
-}
+.entry-footer { display: none !important; }
 
-/* MAKE THE WHOLE CARD CLICKABLE */
+/* CLICKABLE OVERLAY */
 .entry-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    z-index: 10;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; z-index: 10;
 }
 
-/* Keep title links functional */
-.entry-header a {
-    color: inherit;
-    text-decoration: none;
-}
-
-/* PAGINATION STYLING (Next/Prev buttons) */
-.page-footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #333;
-}
-
-.page-footer .pagination {
+/* --- 6. SHAYARI CARDS (Special Handling) --- */
+/* Selects any post inside the 'shayari' folder section */
+.post-entry:has(a[href*="/shayari/"]) {
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border-left: 3px solid var(--color-accent);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    min-height: 250px;
+    text-align: center;
+}
+
+.post-entry:has(a[href*="/shayari/"]) .entry-cover { display: none; }
+
+/* Poet Name */
+.post-entry:has(a[href*="/shayari/"]) .entry-header h2 {
+    font-family: var(--font-hand);
+    font-size: 1.8rem !important;
+    color: var(--color-accent) !important;
+    margin-bottom: 15px;
+}
+
+/* Urdu Text */
+.shayari-original {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* --- 7. PAGINATION & FOOTER --- */
+.page-footer {
+    margin-top: 60px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 30px;
 }
 
 .page-footer .pagination a {
-    padding: 10px 20px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    color: #fff;
+    padding: 12px 25px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px; /* Pill shape */
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
 }
 
 .page-footer .pagination a:hover {
-    background: #2a2a2a;
-    border-color: #555;
-    transform: translateY(-2px);
+    background: var(--color-accent);
+    color: #000;
+    border-color: var(--color-accent);
 }
 
-/* Style the Contact Form inputs */
+/* CONTACT FORM INPUTS */
 input[type="text"], textarea {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    background: #222;
-    border: 1px solid #444;
+    padding: 15px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
     color: #fff;
-    border-radius: 4px;
-    font-family: inherit;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    margin-bottom: 20px;
 }
 
 button[type="submit"] {
-    background: #fff;
+    background: var(--color-accent);
     color: #000;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 12px 30px;
+    border-radius: 50px;
     font-weight: bold;
-    transition: background 0.2s;
-}
-
-button[type="submit"]:hover {
-    background: #ccc;
-}
-
-/* SHAYARI / TEXT CARDS */
-.post-entry:not(:has(.entry-cover)) {
-    background: #1e1e1e;
-    border-left: 4px solid #d4af37; /* Gold accent border */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 200px; /* Make them square-ish */
-    padding: 20px;
-}
-
-/* Make the title (Poet Name) stand out */
-.post-entry:not(:has(.entry-cover)) .entry-header h2 {
-    font-family: 'Georgia', serif; /* Classy serif font */
-    font-style: italic;
-    color: #e0e0e0;
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-}
-
-/* Hide the description on the card to keep it clean, 
-   OR style it to look like a preview */
-.post-entry:not(:has(.entry-cover)) .entry-content {
-    font-family: 'Courier New', monospace;
-    color: #aaa;
-    font-size: 0.85rem;
-}
-/* SHAYARI CARD STYLING */
-/* Selects any post inside the 'shayari' folder section */
-.post-entry:has(a[href*="/shayari/"]) {
-    background: #1a1a1a;
-    border-left: 5px solid #d4af37; /* Gold Border */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 25px;
-    min-height: 220px;
-    text-align: center;
-}
-
-/* Hide the 'cover image' area for shayari if it tries to load empty */
-.post-entry:has(a[href*="/shayari/"]) .entry-cover {
-    display: none;
-}
-
-/* Style the Title (Poet Name) */
-.post-entry:has(a[href*="/shayari/"]) .entry-header h2 {
-    font-family: 'Georgia', serif;
-    font-size: 1.4rem;
-    color: #f0f0f0;
-    margin-bottom: 15px;
-}
-
-/* Style the Excerpt (The Couplet) */
-.post-entry:has(a[href*="/shayari/"]) .entry-content {
-    font-style: italic;
-    color: #bbb;
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-/* Styling the Original Hindi/Urdu Script */
-.shayari-original {
-    font-size: 1.8rem;      /* Make it BIG */
-    line-height: 1.6;
-    color: #d4af37;         /* Gold color for the original text */
-    text-align: center;
-    margin-bottom: 20px;
-    font-family: 'Noto Nastaliq Urdu', 'Noto Sans Devanagari', serif; /* Fallback fonts */
-    font-weight: 500;
-}
-
-/* Adjust the Roman Urdu below it */
-.post-entry blockquote {
-    text-align: center;
-    color: #aaa;
-    font-style: italic;
-    border-left: none; /* Remove default blockquote border */
-    margin: 0;
-    padding-bottom: 15px;
-}
-/* Hide empty pagination links */
-.page-footer .pagination a:empty {
-    display: none;
-}
-
-/* Main site footer at bottom */
-footer.footer {
-    width: 100%;
-    clear: both;
-    margin-top: 60px;
-    padding: 20px 4%;
-    border-top: 1px solid #333;
+    border: none;
+    letter-spacing: 0.05em;
 }
