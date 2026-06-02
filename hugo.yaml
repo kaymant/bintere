@@ -3,6 +3,10 @@ languageCode: en-in
 title: Bin Tere
 theme: PaperMod
 
+author:
+  name: "Bin Tere"
+  email: "hello@bintere.com"
+  
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
