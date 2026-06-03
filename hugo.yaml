@@ -1,12 +1,8 @@
 baseURL: https://bintere.com/
-languageCode: en-in
+locale: en-in
 title: Bin Tere
 theme: PaperMod
 
-author:
-  name: "Bin Tere"
-  email: "hello@bintere.com"
-  
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
@@ -17,6 +13,10 @@ assets:
     - css/extended/custom.css
 
 params:
+  author:
+    name: "Bin Tere"
+    email: "hello@bintere.com"
+
   defaultTheme: dark
   # DISABLING Profile Mode helps clear the "sidebar" effect
   profileMode:
@@ -25,7 +25,6 @@ params:
   mainSections:
     - posts
     
-  
   # ENABLING Home-Info Mode (Better for Grids)
   homeInfoParams:
     Title: "Bin Tere (बिन तेरे)"
@@ -45,7 +44,6 @@ params:
   ShowPostNavLinks: false
   ShowBreadCrumbs: false
   ShowCodeCopyButtons: false
-  
   
 menu:
   main:
@@ -69,7 +67,6 @@ menu:
       name: "Shayari"
       url: "/shayari"
       weight: 25
-      
       
 markup:
   goldmark:
